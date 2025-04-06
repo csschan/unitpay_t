@@ -30,7 +30,7 @@ const confirmAmount = document.getElementById('confirm-amount');
 const confirmReceivedBtn = document.getElementById('confirm-received-btn');
 
 // API基础URL
-const API_BASE_URL = '/api';
+const API_BASE_URL = 'https://hiunitpay.vercel.app/api';
 
 // 初始化应用
 async function initApp() {
@@ -115,7 +115,10 @@ async function connectWallet(autoConnect = false) {
 // 连接Socket.io
 function connectSocket() {
   // 创建Socket连接
-  socket = io();
+  socket = io('https://hiunitpay.vercel.app', {
+    path: '/socket.io',
+    transports: ['websocket', 'polling']
+  });
   
   // 连接成功事件
   socket.on('connect', () => {

@@ -20,11 +20,18 @@ const ContractListenerService = require('./services/contract-listener.service');
 // 初始化Express应用
 const app = express();
 const server = http.createServer(app);
+
+// 配置Socket.io以适应Vercel环境
 const io = socketIo(server, {
   cors: {
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE']
-  }
+  },
+  path: '/socket.io',
+  transports: ['websocket', 'polling'],
+  // 添加适应Vercel无服务器环境的配置
+  pingTimeout: 60000,
+  pingInterval: 25000
 });
 
 // 中间件

@@ -14,6 +14,12 @@ const sequelize = new Sequelize({
     timestamps: true,
     underscored: true,
   },
+  // 为云数据库添加SSL配置
+  dialectOptions: process.env.DB_SSL === 'true' ? {
+    ssl: {
+      rejectUnauthorized: true
+    }
+  } : {}
 });
 
 // 测试数据库连接
