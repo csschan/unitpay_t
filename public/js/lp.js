@@ -31,7 +31,7 @@ const noPendingTasksMessage = document.getElementById('no-pending-tasks-message'
 const noCompletedTasksMessage = document.getElementById('no-completed-tasks-message');
 
 // API基础URL
-const API_BASE_URL = '/api';
+const API_BASE_URL = 'https://hiunitpay.vercel.app/api';
 
 // 初始化应用
 async function initApp() {
@@ -182,7 +182,10 @@ function updateLPInfo() {
 // 连接Socket.io
 function connectSocket() {
   // 创建Socket连接
-  socket = io();
+  socket = io('https://hiunitpay.vercel.app', {
+    path: '/socket.io',
+    transports: ['websocket', 'polling']
+  });
   
   // 连接成功事件
   socket.on('connect', () => {
